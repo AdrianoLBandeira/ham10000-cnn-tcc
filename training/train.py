@@ -41,12 +41,19 @@ def create_generators(train_df, test_df, image_size, batch_size):
     return train_generator, test_generator
 
 
-def train_model(model, train_generator, test_generator, epochs):
+def train_model(model, train_generator, test_generator, epochs, class_weights=None):
+    """
+    Treina o modelo.
+
+    O parâmetro class_weights permite balancear o treinamento,
+    dando maior importância para classes minoritárias.
+    """
 
     history = model.fit(
         train_generator,
         validation_data=test_generator,
-        epochs=epochs
+        epochs=epochs,
+        class_weight=class_weights
     )
 
     return history

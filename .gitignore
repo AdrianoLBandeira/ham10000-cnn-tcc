@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environment
+venv/
+.env/
+
+# Dataset
+dataset/
+
+# TensorFlow
+*.h5
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+logs/
+
+# Sistema
+.DS_Store
+Thumbs.db

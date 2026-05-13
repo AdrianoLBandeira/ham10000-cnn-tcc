@@ -12,6 +12,8 @@ from model.mobilenet_model import create_model
 
 from training.train import create_generators
 from training.train import train_model
+from training.callbacks import get_callbacks
+from training.fine_tuning import fine_tune_model
 
 from evaluation.metrics import evaluate_model
 
@@ -38,14 +40,35 @@ def main():
 
     class_weights = calculate_class_weights(train_generator)
 
+    callbacks = get_callbacks()
+
     model = create_model(NUM_CLASSES)
 
+    print("\nEtapa 1: treinamento da cabeça classificadora\n")
+
     train_model(
+        model=model,
+        train_generator=train_generator,
+        test_generator=test_generator,
+        epochs=EPOCHS,
+        class_weights=class_weights,
+        callbacks=callbacks
+    )
+
+    print("\nEtapa 2: fine tuning da MobileNet\n")
+
+    model = fine_tune_model(
         model,
-        train_generator,
-        test_generator,
-        EPOCHS,
-        class_weights
+        layers_to_unfreeze=25
+    )
+
+    train_model(
+        model=model,
+        train_generator=train_generator,
+        test_generator=test_generator,
+        epochs=10,
+        class_weights=class_weights,
+        callbacks=callbacks
     )
 
     evaluate_model(

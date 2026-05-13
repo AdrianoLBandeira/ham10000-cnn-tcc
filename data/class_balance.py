@@ -6,13 +6,7 @@ import numpy as np
 from sklearn.utils.class_weight import compute_class_weight
 
 
-def calculate_class_weights(train_generator):
-    """
-    Calcula pesos para cada classe com base na frequência das amostras.
-
-    Classes com menos imagens recebem peso maior.
-    Classes com mais imagens recebem peso menor.
-    """
+def calculate_class_weights(train_generator, smooth=True):
 
     class_labels = train_generator.classes
 
@@ -21,6 +15,9 @@ def calculate_class_weights(train_generator):
         classes=np.unique(class_labels),
         y=class_labels
     )
+
+    if smooth:
+        class_weights = np.sqrt(class_weights)
 
     class_weights_dict = dict(enumerate(class_weights))
 

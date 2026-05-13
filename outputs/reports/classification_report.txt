@@ -1,0 +1,15 @@
+              precision    recall  f1-score   support
+
+       akiec       0.27      0.49      0.35        49
+         bcc       0.33      0.30      0.32        77
+         bkl       0.33      0.25      0.28       165
+          df       0.03      0.18      0.06        17
+         mel       0.24      0.25      0.25       167
+          nv       0.91      0.44      0.59      1006
+        vasc       0.04      0.95      0.08        22
+
+    accuracy                           0.39      1503
+   macro avg       0.31      0.41      0.27      1503
+weighted avg       0.70      0.39      0.48      1503
+
+Acurácia: 0.3945
